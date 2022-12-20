@@ -155,3 +155,8 @@ C:\Users\Twin\Desktop\UBT - Projekte\Hyrje ne Web\WebProject\WebProject\bin\Debu
 C:\Users\Twin\Desktop\UBT - Projekte\Hyrje ne Web\WebProject\WebProject\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\Twin\Desktop\UBT - Projekte\Hyrje ne Web\WebProject\WebProject\obj\Debug\netcoreapp3.1\Razor\Views\Account\Register.cshtml.g.cs
 C:\Users\Twin\Desktop\UBT - Projekte\Hyrje ne Web\WebProject\WebProject\obj\Debug\netcoreapp3.1\Razor\Views\Account\Login.cshtml.g.cs
+C:\Users\Twin\Desktop\UBT - Projekte\Hyrje ne Web\WebProject\WebProject\obj\Debug\netcoreapp3.1\Razor\Views\Faculty\Create.cshtml.g.cs
+C:\Users\Twin\Desktop\UBT - Projekte\Hyrje ne Web\WebProject\WebProject\obj\Debug\netcoreapp3.1\Razor\Views\Faculty\Index.cshtml.g.cs
+C:\Users\Twin\Desktop\UBT - Projekte\Hyrje ne Web\WebProject\WebProject\obj\Debug\netcoreapp3.1\Razor\Views\Faculty\Edit.cshtml.g.cs
+C:\Users\Twin\Desktop\UBT - Projekte\Hyrje ne Web\WebProject\WebProject\obj\Debug\netcoreapp3.1\Razor\Views\Faculty\Delete.cshtml.g.cs
+C:\Users\Twin\Desktop\UBT - Projekte\Hyrje ne Web\WebProject\WebProject\obj\Debug\netcoreapp3.1\Razor\Views\Faculty\Details.cshtml.g.cs

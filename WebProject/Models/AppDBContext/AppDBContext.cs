@@ -15,6 +15,7 @@ namespace WebProject.Models.AppDBContext
         {
             _options = options;
         }
+        public DbSet<Faculty> Faculties { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
