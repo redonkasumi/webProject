@@ -160,3 +160,5 @@ C:\Users\Twin\Desktop\UBT - Projekte\Hyrje ne Web\WebProject\WebProject\obj\Debu
 C:\Users\Twin\Desktop\UBT - Projekte\Hyrje ne Web\WebProject\WebProject\obj\Debug\netcoreapp3.1\Razor\Views\Faculty\Edit.cshtml.g.cs
 C:\Users\Twin\Desktop\UBT - Projekte\Hyrje ne Web\WebProject\WebProject\obj\Debug\netcoreapp3.1\Razor\Views\Faculty\Delete.cshtml.g.cs
 C:\Users\Twin\Desktop\UBT - Projekte\Hyrje ne Web\WebProject\WebProject\obj\Debug\netcoreapp3.1\Razor\Views\Faculty\Details.cshtml.g.cs
+C:\Users\Twin\Desktop\UBT - Projekte\Hyrje ne Web\WebProject\WebProject\bin\Debug\netcoreapp3.1\PagedList.dll
+C:\Users\Twin\Desktop\UBT - Projekte\Hyrje ne Web\WebProject\WebProject\bin\Debug\netcoreapp3.1\PagedList.Mvc.dll

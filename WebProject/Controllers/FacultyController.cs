@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebProject.Models;
 using WebProject.Models.AppDBContext;
+using PagedList;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication20.Controllers
 {
+    [Authorize]
     public class FacultyController : Controller
     {
         private readonly AppDBContext _context;
@@ -20,9 +23,56 @@ namespace WebApplication20.Controllers
         }
 
         // GET: Universities
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            return View(await _context.Faculties.ToListAsync());
+            ViewBag.CurrentSort = sortOrder;
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DepartSortParm = sortOrder == "Name" ? "depart_desc" : "Name";
+            ViewBag.TelephoneNoSortParm = String.IsNullOrEmpty(sortOrder) ? "tel_desc" : "";
+            ViewBag.EmailSortParm = String.IsNullOrEmpty(sortOrder) ? "email_desc" : "";
+
+            var faculties = from s in _context.Faculties
+                           select s;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                faculties = faculties.Where(s => s.Name.Contains(searchString)
+                                       || s.Department.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "depart_desc":
+                    faculties = faculties.OrderByDescending(s => s.Department);
+                    break;
+                case "tel_desc":
+                    faculties = faculties.OrderByDescending(s => s.TelephoneNo);
+                    break;
+                case "email_desc":
+                    faculties = faculties.OrderByDescending(s => s.Email);
+                    break;
+                case "Name":
+                    faculties = faculties.OrderBy(s => s.Name);
+                    break;
+                case "name_desc":
+                    faculties = faculties.OrderByDescending(s => s.Name);
+                    break;
+            }
+
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(faculties.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Universities/Details/5
