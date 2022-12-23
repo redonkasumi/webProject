@@ -162,3 +162,10 @@ C:\Users\Twin\Desktop\UBT - Projekte\Hyrje ne Web\WebProject\WebProject\obj\Debu
 C:\Users\Twin\Desktop\UBT - Projekte\Hyrje ne Web\WebProject\WebProject\obj\Debug\netcoreapp3.1\Razor\Views\Faculty\Details.cshtml.g.cs
 C:\Users\Twin\Desktop\UBT - Projekte\Hyrje ne Web\WebProject\WebProject\bin\Debug\netcoreapp3.1\PagedList.dll
 C:\Users\Twin\Desktop\UBT - Projekte\Hyrje ne Web\WebProject\WebProject\bin\Debug\netcoreapp3.1\PagedList.Mvc.dll
+C:\Users\Twin\Desktop\UBT - Projekte\Hyrje ne Web\WebProject\WebProject\bin\Debug\netcoreapp3.1\System.Web.Mvc.dll
+C:\Users\Twin\Desktop\UBT - Projekte\Hyrje ne Web\WebProject\WebProject\bin\Debug\netcoreapp3.1\System.Web.Razor.dll
+C:\Users\Twin\Desktop\UBT - Projekte\Hyrje ne Web\WebProject\WebProject\bin\Debug\netcoreapp3.1\System.Web.Helpers.dll
+C:\Users\Twin\Desktop\UBT - Projekte\Hyrje ne Web\WebProject\WebProject\bin\Debug\netcoreapp3.1\System.Web.WebPages.Deployment.dll
+C:\Users\Twin\Desktop\UBT - Projekte\Hyrje ne Web\WebProject\WebProject\bin\Debug\netcoreapp3.1\System.Web.WebPages.Razor.dll
+C:\Users\Twin\Desktop\UBT - Projekte\Hyrje ne Web\WebProject\WebProject\bin\Debug\netcoreapp3.1\System.Web.WebPages.dll
+C:\Users\Twin\Desktop\UBT - Projekte\Hyrje ne Web\WebProject\WebProject\bin\Debug\netcoreapp3.1\Microsoft.Web.Infrastructure.dll
