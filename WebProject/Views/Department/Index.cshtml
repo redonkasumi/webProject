@@ -1,0 +1,95 @@
+﻿@model PagedList.IPagedList<WebProject.Models.Department>
+@using PagedList.Mvc;
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+@{
+    ViewBag.Title = "Departments";
+}
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/styles.css" rel="stylesheet" type="text/css" />
+<div style="display:flex; justify-content:left">
+    <div class="create-button">
+        <p>
+            <button style="margin-bottom: 30px; margin-top: 30px" class="btn btn-light">
+                <a style="text-decoration: none; " id="link" asp-action="Create">Create New</a>
+            </button>
+        </p>
+    </div>
+    @using (Html.BeginForm())
+    {
+        <div style="margin-bottom: 30px; margin-left: 20px; margin-top:30px">
+            <p>
+                Find by name: @Html.TextBox("SearchString")
+                <button type="submit" class="btn btn-primary" style="height: 30px; width: 40px; margin-bottom: 5px">
+                    <i class="fas fa-search"></i>
+
+                </button>
+            </p>
+        </div>
+    }
+</div>
+
+
+<table class="table table-striped  table-hover">
+    <thead>
+        <tr>
+            <th style="margin-right: 10px">
+
+                @Html.ActionLink("DepartmentName", "Index", new { sortOrder = ViewBag.DepartmentNameSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+
+            <th>
+                @Html.ActionLink("Telephone No", "Index", new { sortOrder = ViewBag.TelephoneNoSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("Email", "Index", new { sortOrder = ViewBag.EmailSortParm, currentFilter = ViewBag.CurrentFilter })
+
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+
+            <tr>
+
+
+                <td>
+
+                    <span>@Html.DisplayFor(modelItem => item.DepartmentName)</span>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TelephoneNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+
+                </td>
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @*  @Html.PagedListPager(Model, page => Url.Action("Index",
+        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+    *@
+
+
+
