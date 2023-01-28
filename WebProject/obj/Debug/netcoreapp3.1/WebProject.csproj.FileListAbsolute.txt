@@ -344,3 +344,8 @@ C:\Users\ardit\OneDrive\Desktop\UBT\Semester 5\Hyrje ne Web Programim\Projekti\H
 C:\Users\ardit\OneDrive\Desktop\UBT\Semester 5\Hyrje ne Web Programim\Projekti\HRMS\WebProject\obj\Debug\netcoreapp3.1\Razor\Views\Department\Details.cshtml.g.cs
 C:\Users\ardit\OneDrive\Desktop\UBT\Semester 5\Hyrje ne Web Programim\Projekti\HRMS\WebProject\obj\Debug\netcoreapp3.1\Razor\Views\Department\Edit.cshtml.g.cs
 C:\Users\ardit\OneDrive\Desktop\UBT\Semester 5\Hyrje ne Web Programim\Projekti\HRMS\WebProject\obj\Debug\netcoreapp3.1\Razor\Views\Department\Index.cshtml.g.cs
+C:\Users\ardit\OneDrive\Desktop\UBT\Semester 5\Hyrje ne Web Programim\Projekti\HRMS\WebProject\obj\Debug\netcoreapp3.1\staticwebassets\WebProject.StaticWebAssets.Pack.cache
+C:\Users\ardit\OneDrive\Desktop\UBT\Semester 5\Hyrje ne Web Programim\Projekti\HRMS\WebProject\obj\Debug\netcoreapp3.1\staticwebassets\msbuild.WebProject.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\ardit\OneDrive\Desktop\UBT\Semester 5\Hyrje ne Web Programim\Projekti\HRMS\WebProject\obj\Debug\netcoreapp3.1\staticwebassets\msbuild.build.WebProject.props
+C:\Users\ardit\OneDrive\Desktop\UBT\Semester 5\Hyrje ne Web Programim\Projekti\HRMS\WebProject\obj\Debug\netcoreapp3.1\staticwebassets\msbuild.buildMultiTargeting.WebProject.props
+C:\Users\ardit\OneDrive\Desktop\UBT\Semester 5\Hyrje ne Web Programim\Projekti\HRMS\WebProject\obj\Debug\netcoreapp3.1\staticwebassets\msbuild.buildTransitive.WebProject.props

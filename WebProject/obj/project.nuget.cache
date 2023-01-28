@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ZuDfZuzQgh4/ha6asFUTZxbFHveh2Ztmoazva2gCU16vLv+5jxZDlwSjxq6ED+9YYZw58O7Vt588pDHtaC3gig==",
+  "dgSpecHash": "HL+jClHmW0SuH2A1S11eF8g04SJ3VfFC6uwbn0+KpySWytV+JlyZewDhT0qWEnIj/DlC7etbm5g+W0UpQBvpJQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\ardit\\OneDrive\\Desktop\\UBT\\Semester 5\\Hyrje ne Web Programim\\Projekti\\HRMS\\WebProject\\WebProject.csproj",
   "expectedPackageFiles": [
@@ -174,7 +174,8 @@
     "C:\\Users\\ardit\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\ardit\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\ardit\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\ardit\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
+    "C:\\Users\\ardit\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512",
+    "C:\\Users\\ardit\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.32\\microsoft.netcore.app.host.win-x64.3.1.32.nupkg.sha512"
   ],
   "logs": [
     {
