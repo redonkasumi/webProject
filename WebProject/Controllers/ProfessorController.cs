@@ -15,12 +15,12 @@ using Microsoft.AspNetCore.Identity;
 namespace WebApplication20.Controllers
 {
     [Authorize]
-    public class StudentController : Controller
+    public class ProfessorController : Controller
     {
         private readonly AppDBContext _context;
         private readonly UserManager<IdentityUser> _userManager;
 
-        public StudentController(AppDBContext context, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public ProfessorController(AppDBContext context, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
         {
             _context = context;
             _userManager = userManager;
@@ -41,37 +41,37 @@ namespace WebApplication20.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            ViewBag.StudentNameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.ProfessorNameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.LastNameSortParm = String.IsNullOrEmpty(sortOrder) ? "last_name_desc" : "";
             ViewBag.EmailSortParm = String.IsNullOrEmpty(sortOrder) ? "email_desc" : "";
 
-            var students = from s in _context.Students
+            var professors = from s in _context.Professors
                            select s;
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                students = students.Where(s => s.FirstName.Contains(searchString)
+                professors = professors.Where(s => s.FirstName.Contains(searchString)
                                        || s.FirstName.Contains(searchString));
             }
             switch (sortOrder)
             {
                 case "last_name_desc":
-                    students = students.OrderByDescending(s => s.LastName);
+                    professors = professors.OrderByDescending(s => s.LastName);
                     break;
                 case "email_desc":
-                    students = students.OrderByDescending(s => s.Email);
+                    professors = professors.OrderByDescending(s => s.Email);
                     break;
                 case "Name":
-                    students = students.OrderBy(s => s.FirstName);
+                    professors = professors.OrderBy(s => s.FirstName);
                     break;
                 case "name_desc":
-                    students = students.OrderByDescending(s => s.FirstName);
+                    professors = professors.OrderByDescending(s => s.FirstName);
                     break;
             }
 
             int pageSize = 3;
             int pageNumber = (page ?? 1);
-            return View(students.ToPagedList(pageNumber, pageSize));
+            return View(professors.ToPagedList(pageNumber, pageSize));
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -80,9 +80,9 @@ namespace WebApplication20.Controllers
             {
                 return NotFound();
             }
-            var student = await _context.Students.FirstOrDefaultAsync(m => m.Id == id);
+            var professor = await _context.Professors.FirstOrDefaultAsync(m => m.Id == id);
 
-            return View(student);
+            return View(professor);
         }
 
         public IActionResult Create()
@@ -92,19 +92,19 @@ namespace WebApplication20.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Gender, Address, DateOfBirth, Email, FacultyId, Thesis")] Student student)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Gender, Address, DateOfBirth, Email, FacultyId, Thesis")] Professor professor)
         {
-            var user = new IdentityUser { UserName = student.Email, Email = student.Email };
-            var result = await _userManager.CreateAsync(user, "Redon123@");
+            var user = new IdentityUser { UserName = professor.Email, Email = professor.Email };
+            var result = await _userManager.CreateAsync(user, "Ardit123@");
             System.Diagnostics.Debug.WriteLine(result);
 
             if (ModelState.IsValid && result.Succeeded)
             {
-                _context.Add(student);
+                _context.Add(professor);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(student);
+            return View(professor);
         }
 
         public async Task<IActionResult> Edit(int? id)
@@ -114,19 +114,19 @@ namespace WebApplication20.Controllers
                 return NotFound();
             }
 
-            var student = await _context.Students.FindAsync(id);
-            if (student == null)
+            var professor = await _context.Professors.FindAsync(id);
+            if (professor == null)
             {
                 return NotFound();
             }
-            return View(student);
+            return View(professor);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id, FirstName, LastName, Gender, Address, DateOfBirth, Email, FacultyId, Thesis")] Student student)
+        public async Task<IActionResult> Edit(int id, [Bind("Id, FirstName, LastName, Gender, Address, DateOfBirth, Email, FacultyId, Thesis")] Professor professor)
         {
-            if (id != student.Id)
+            if (id != professor.Id)
             {
                 return NotFound();
             }
@@ -135,12 +135,12 @@ namespace WebApplication20.Controllers
             {
                 try
                 {
-                    _context.Update(student);
+                    _context.Update(professor);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!StudentExists(student.Id))
+                    if (!ProfessorExists(professor.Id))
                     {
                         return NotFound();
                     }
@@ -151,7 +151,7 @@ namespace WebApplication20.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(student);
+            return View(professor);
         }
 
         public async Task<IActionResult> Delete(int? id)
@@ -161,29 +161,29 @@ namespace WebApplication20.Controllers
                 return NotFound();
             }
 
-            var student = await _context.Students
+            var professor = await _context.Professors
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (student == null)
+            if (professor == null)
             {
                 return NotFound();
             }
 
-            return View(student);
+            return View(professor);
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var student = await _context.Students.FindAsync(id);
-            _context.Students.Remove(student);
+            var professor = await _context.Professors.FindAsync(id);
+            _context.Professors.Remove(professor);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool StudentExists(int id)
+        private bool ProfessorExists(int id)
         {
-            return _context.Students.Any(e => e.Id == id);
+            return _context.Professors.Any(e => e.Id == id);
         }
     }
 }

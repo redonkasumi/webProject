@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebProject.Models.AppDBContext;
 using Microsoft.EntityFrameworkCore;
+using WebProject.Models;
 
 namespace WebProject
 {
@@ -29,6 +30,8 @@ namespace WebProject
             services.AddDbContext<AppDBContext>(c => c.UseSqlServer(connectionString));
 
             services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppDBContext>();
+/*            services.AddIdentity<Professor, IdentityRole>()
+                .AddEntityFrameworkStores<AppDBContext>();*/
 
             services.AddControllersWithViews();
         }
