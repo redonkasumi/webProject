@@ -23,11 +23,14 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item" >
+                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Faculty" asp-action="Index">Faculty</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Department" asp-action="Index">Department</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Index">Student</a>
                         </li>
                         <li class="nav-item">
                             <a style="margin-left: 700px;" class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Log out</a>
