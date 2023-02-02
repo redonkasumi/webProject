@@ -9,6 +9,7 @@ using WebProject.Models;
 using WebProject.Models.AppDBContext;
 using PagedList;
 using Microsoft.AspNetCore.Authorization;
+using WebProject.ViewModels;
 
 namespace WebApplication20.Controllers
 {
@@ -48,8 +49,7 @@ namespace WebApplication20.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                faculties = faculties.Where(s => s.Name.Contains(searchString)
-                                       || s.Department.Contains(searchString));
+                faculties = faculties.Where(s => s.Name.Contains(searchString));
             }
             switch (sortOrder)
             {
@@ -98,7 +98,16 @@ namespace WebApplication20.Controllers
         // GET: Universities/Create
         public IActionResult Create()
         {
-            return View();
+            var departments = _context.Departments.ToList();
+            var viewModel = new FacultyCreateViewModel
+            {
+                Departments = departments.Select(d => new SelectListItem
+                {
+                    Value = d.Id.ToString(),
+                    Text = d.DepartmentName
+                })
+            };
+            return View(viewModel);
         }
 
         // POST: Universities/Create
@@ -106,7 +115,7 @@ namespace WebApplication20.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Department,TelephoneNo,Email")] Faculty faculty)
+        public async Task<IActionResult> Create([Bind("Id,Name,DepartmentId,TelephoneNo,Email")] Faculty faculty)
         {
             if (ModelState.IsValid)
             {
@@ -118,19 +127,30 @@ namespace WebApplication20.Controllers
         }
 
         // GET: Universities/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
+            var faculty = _context.Faculties.Find(id);
+            if (faculty == null)
             {
                 return NotFound();
             }
 
-            var university = await _context.Faculties.FindAsync(id);
-            if (university == null)
+            var departments = _context.Departments.ToList();
+            var viewModel = new FacultyEditViewModel
             {
-                return NotFound();
-            }
-            return View(university);
+                Id = faculty.Id,
+                Name = faculty.Name,
+                TelephoneNo = faculty.TelephoneNo,
+                Email = faculty.Email,
+                DepartmentId = faculty.DepartmentId,
+                Departments = departments.Select(d => new SelectListItem
+                {
+                    Value = d.Id.ToString(),
+                    Text = d.DepartmentName,
+                    Selected = d.Id == faculty.DepartmentId
+                })
+            };
+            return View(viewModel);
         }
 
         // POST: Universities/Edit/5
@@ -138,7 +158,7 @@ namespace WebApplication20.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Department,TelephoneNo,Email")] Faculty faculty)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,DepartmentId,TelephoneNo,Email")] Faculty faculty)
         {
             if (id != faculty.Id)
             {
