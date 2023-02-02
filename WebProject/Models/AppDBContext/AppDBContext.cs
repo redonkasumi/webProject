@@ -18,6 +18,9 @@ namespace WebProject.Models.AppDBContext
         public DbSet<Student> Students { get; set; }
         public DbSet<Professor> Professors { get; set; }
 
+        public DbSet<ThesisSubject> ThesisSubjects { get; set; }
+
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
