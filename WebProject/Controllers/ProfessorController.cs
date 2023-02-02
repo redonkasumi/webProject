@@ -10,7 +10,7 @@ using WebProject.Models.AppDBContext;
 using PagedList;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-
+using WebProject.ViewModels;
 
 namespace WebApplication20.Controllers
 {
@@ -87,12 +87,21 @@ namespace WebApplication20.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            var faculties = _context.Faculties.ToList();
+            var viewModel = new ProfessorCreateViewModel
+            {
+                Faculties = faculties.Select(d => new SelectListItem
+                {
+                    Value = d.Id.ToString(),
+                    Text = d.Name
+                })
+            };
+            return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Gender, Address, DateOfBirth, Email, FacultyId, Thesis")] Professor professor)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Gender, Address, DateOfBirth, Email, FacultyId")] Professor professor)
         {
             var user = new IdentityUser { UserName = professor.Email, Email = professor.Email };
             var result = await _userManager.CreateAsync(user, "Ardit123@");
@@ -104,27 +113,54 @@ namespace WebApplication20.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(professor);
+
+            var professorModel = new ProfessorCreateViewModel
+            {
+                Id = professor.Id,
+                FirstName = professor.FirstName,
+                LastName = professor.LastName,
+                Gender = professor.Gender,
+                Address = professor.Address,
+                DateOfBirth = professor.DateOfBirth,
+                Email = professor.Email,
+                FacultyId = professor.FacultyId
+            };
+            return View(professorModel);
+
         }
 
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var professor = await _context.Professors.FindAsync(id);
+            var professor = _context.Professors.Find(id);
             if (professor == null)
             {
                 return NotFound();
             }
-            return View(professor);
+
+            var faculties = _context.Faculties.ToList();
+            var viewModel = new ProfessorEditViewModel
+            {
+                Id = professor.Id,
+                FirstName = professor.FirstName,
+                LastName = professor.LastName,
+                Gender = professor.Gender,
+                Email = professor.Email,
+                Address = professor.Address,
+                DateOfBirth = professor.DateOfBirth,
+                FacultyId = professor.FacultyId,
+                Faculties = faculties.Select(d => new SelectListItem
+                {
+                    Value = d.Id.ToString(),
+                    Text = d.Name,
+                    Selected = d.Id == professor.FacultyId
+                })
+            };
+            return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id, FirstName, LastName, Gender, Address, DateOfBirth, Email, FacultyId, Thesis")] Professor professor)
+        public async Task<IActionResult> Edit(int id, [Bind("Id, FirstName, LastName, Gender, Address, DateOfBirth, Email, FacultyId")] Professor professor)
         {
             if (id != professor.Id)
             {
