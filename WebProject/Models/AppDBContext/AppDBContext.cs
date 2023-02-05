@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace WebProject.Models.AppDBContext
@@ -20,12 +21,17 @@ namespace WebProject.Models.AppDBContext
 
         public DbSet<ThesisSubject> ThesisSubjects { get; set; }
 
+        public DbSet<ThesisRequest> ThesisRequests { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
+            modelBuilder.Entity<IdentityRole>().HasData(
+                new IdentityRole { Name = "Admin", NormalizedName = "ADMIN" },
+                new IdentityRole { Name = "Professor", NormalizedName = "PROFESSOR" },
+                new IdentityRole { Name = "Student", NormalizedName = "STUDENT" }
+            );
         }
     }
 }

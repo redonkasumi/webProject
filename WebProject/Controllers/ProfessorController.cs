@@ -19,10 +19,12 @@ namespace WebApplication20.Controllers
     {
         private readonly AppDBContext _context;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public ProfessorController(AppDBContext context, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public ProfessorController(AppDBContext context, RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
         {
             _context = context;
+            _roleManager = roleManager;
             _userManager = userManager;
         }
 
@@ -105,7 +107,22 @@ namespace WebApplication20.Controllers
         {
             var user = new IdentityUser { UserName = professor.Email, Email = professor.Email };
             var result = await _userManager.CreateAsync(user, "Ardit123@");
-            System.Diagnostics.Debug.WriteLine(result);
+            if (result.Succeeded)
+            {
+
+                if (!await _roleManager.RoleExistsAsync("Professor"))
+                {
+                    // Create the "User" role
+                    var userRole = new IdentityRole("Professor");
+                    await _roleManager.CreateAsync(userRole);
+                }
+                await _userManager.AddToRoleAsync(user, "Professor");
+
+            }
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
 
             if (ModelState.IsValid && result.Succeeded)
             {
