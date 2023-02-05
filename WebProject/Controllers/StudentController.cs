@@ -10,7 +10,8 @@ using WebProject.Models.AppDBContext;
 using PagedList;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-
+using WebProject.ViewModels;
+using WebProject.ViewModels.Student;
 
 namespace WebApplication20.Controllers
 {
@@ -87,7 +88,16 @@ namespace WebApplication20.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            var faculties = _context.Faculties.ToList();
+            var viewModel = new StudentCreateViewModel
+            {
+                Faculties = faculties.Select(d => new SelectListItem
+                {
+                    Value = d.Id.ToString(),
+                    Text = d.Name
+                })
+            };
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -104,7 +114,20 @@ namespace WebApplication20.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(student);
+
+            var studentModel = new StudentCreateViewModel
+            {
+                Id = student.Id,
+                FirstName = student.FirstName,
+                LastName = student.LastName,
+                Gender = student.Gender,
+                Address = student.Address,
+                DateOfBirth = student.DateOfBirth,
+                Email = student.Email,
+                Thesis = student.Thesis,
+                FacultyId = student.FacultyId
+            };
+            return View(studentModel);
         }
 
         public async Task<IActionResult> Edit(int? id)
@@ -119,7 +142,26 @@ namespace WebApplication20.Controllers
             {
                 return NotFound();
             }
-            return View(student);
+            var faculties = _context.Faculties.ToList();
+            var viewModel = new StudentEditViewModel
+            {
+                Id = student.Id,
+                FirstName = student.FirstName,
+                LastName = student.LastName,
+                Gender = student.Gender,
+                Address = student.Address,
+                DateOfBirth = student.DateOfBirth,
+                Email = student.Email,
+                Thesis = student.Thesis,
+                FacultyId = student.FacultyId,
+                Faculties = faculties.Select(d => new SelectListItem
+                {
+                    Value = d.Id.ToString(),
+                    Text = d.Name,
+                    Selected = d.Id == student.FacultyId
+                })
+            };
+            return View(viewModel);
         }
 
         [HttpPost]

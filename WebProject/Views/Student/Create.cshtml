@@ -1,4 +1,4 @@
-﻿@model WebProject.Models.Student
+﻿@model WebProject.ViewModels.Student.StudentCreateViewModel
 @{
     ViewData["Title"] = "Create";
 }
@@ -40,9 +40,10 @@
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FacultyId" class="control-label"></label>
-                <input asp-for="FacultyId" class="form-control" />
-                <span asp-validation-for="FacultyId" class="text-danger"></span>
+                <label asp-for="FacultyId">Faculty</label>
+                <select asp-for="FacultyId" asp-items="Model.Faculties" class="form-control">
+                    <option value="">-- Select a faculty --</option>
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="Thesis" class="control-label"></label>

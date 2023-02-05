@@ -10,7 +10,11 @@
     ViewBag.Title = "Professors";
 }
 
-<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<head>
+    <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+</head>
 <link href="~/Content/styles.css" rel="stylesheet" type="text/css" />
 <div style="display:flex; justify-content:left">
     <div class="create-button">
@@ -22,15 +26,15 @@
     </div>
     @using (Html.BeginForm())
     {
-        <div style="margin-bottom: 30px; margin-left: 20px; margin-top:30px">
-            <p>
-                Find by name: @Html.TextBox("SearchString")
-                <button type="submit" class="btn btn-primary" style="height: 30px; width: 40px; margin-bottom: 5px">
-                    <i class="fas fa-search"></i>
-
-                </button>
-            </p>
-        </div>
+<form class="search-form">
+    <div class="form-group">
+        <label for="search-input">Find by name:</label>
+        <input type="text" class="form-control" id="search-input" name="SearchString">
+        <button type="submit" class="btn btn-primary search-button">
+            <i class="fas fa-search fa-xs"></i>
+        </button>
+    </div>
+</form>
     }
 </div>
 
@@ -73,10 +77,17 @@
 
                 </td>
 
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                 <td>
+                    <a class="text-primary" asp-action="Edit" asp-route-id="@item.Id">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a class="text-primary" asp-action="Details" asp-route-id="@item.Id">
+                        <i class="fas fa-info-circle"></i>
+                    </a>
+                    <a class="text-danger" asp-action="Delete" asp-route-id="@item.Id">
+                        <i class="fas fa-trash"></i>
+
+                    </a>
                 </td>
             </tr>
         }

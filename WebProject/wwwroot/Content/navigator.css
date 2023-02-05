@@ -1,0 +1,39 @@
+﻿
+.navbar {
+    height: 60px;
+    background-color: #163057;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    padding-left: 20px;
+    line-height: 60px;
+    color: white;
+}
+
+.navbar-nav {
+    margin-left: auto;
+}
+
+.nav-item {
+    font-size: 20px;
+    padding-left: 20px;
+    line-height: 60px;
+    color: white;
+}
+
+.nav-link {
+    font-size: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: white;
+}
+
+    .nav-link:hover {
+        background-color: #008080;
+        color: white;
+    }
+
+.nav-item:hover {
+    color: white;
+}
