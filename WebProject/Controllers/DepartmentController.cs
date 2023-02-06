@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication20.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Professor")]
     public class DepartmentController : Controller
     {
         private readonly AppDBContext _context;

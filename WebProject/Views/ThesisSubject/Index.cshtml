@@ -18,13 +18,16 @@
 
 <link href="~/Content/styles.css" rel="stylesheet" type="text/css" />
 <div style="display:flex; justify-content:left">
-    <div class="create-button">
-        <p>
+    @if (User.IsInRole("Professor"))
+    {
+        <div class="create-button">
+            <p>
             <button style="margin-bottom: 30px; margin-top: 30px" class="btn btn-light">
                 <a style="text-decoration: none; " id="link" asp-action="Create">Create New</a>
             </button>
         </p>
     </div>
+    }
     @using (Html.BeginForm())
     {
 <form class="search-form">
@@ -77,16 +80,22 @@
                 </td>
 
                 <td>
-                    <a class="text-primary" asp-action="Edit" asp-route-id="@item.Id">
-                        <i class="fas fa-edit"></i>
-                    </a> 
+                    @if (User.IsInRole("Professor"))
+                    {
+                        <a class="text-primary" asp-action="Edit" asp-route-id="@item.Id">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    }
                     <a class="text-primary" asp-action="Details" asp-route-id="@item.Id">
                         <i class="fas fa-info-circle"></i>
-                    </a> 
-                    <a class="text-danger" asp-action="Delete" asp-route-id="@item.Id">
-                        <i class="fas fa-trash"></i>
-
                     </a>
+                    @if (User.IsInRole("Professor"))
+                    {
+                        <a class="text-danger" asp-action="Delete" asp-route-id="@item.Id">
+                            <i class="fas fa-trash"></i>
+
+                        </a>
+                    }
                 </td>
             </tr>
         }

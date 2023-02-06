@@ -77,6 +77,7 @@ namespace WebApplication20.Controllers
 
             return View(thesisSubject);
         }
+        [Authorize(Roles = "Professor")]
 
         public IActionResult Create()
         {
@@ -92,6 +93,7 @@ namespace WebApplication20.Controllers
             return View(viewModel);
         }
 
+        [Authorize(Roles = "Professor")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Title,Description,Keywords, Date, FacultyId")] ThesisSubject thesisSubject)
@@ -117,6 +119,7 @@ namespace WebApplication20.Controllers
 
         }
 
+        [Authorize(Roles = "Professor")]
         public async Task<IActionResult> Edit(int? id)
         {
             var thesisSubject = _context.ThesisSubjects.Find(id);
@@ -144,6 +147,7 @@ namespace WebApplication20.Controllers
             return View(viewModel);
         }
 
+        [Authorize(Roles = "Professor")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,Keywords, Date, FacultyId")] ThesisSubject thesisSubject)
@@ -176,6 +180,7 @@ namespace WebApplication20.Controllers
             return View(thesisSubject);
         }
 
+        [Authorize(Roles = "Professor")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -193,6 +198,7 @@ namespace WebApplication20.Controllers
             return View(thesisSubject);
         }
 
+        [Authorize(Roles = "Professor")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

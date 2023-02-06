@@ -14,7 +14,7 @@ using WebProject.ViewModels;
 
 namespace WebApplication20.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Professor")]
     public class ProfessorController : Controller
     {
         private readonly AppDBContext _context;

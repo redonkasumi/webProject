@@ -34,6 +34,7 @@ namespace WebApplication20.Controllers
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
             var student = await _context.Students.FirstOrDefaultAsync(m => m.Email == user.Email);
+            var professor = await _context.Professors.FirstOrDefaultAsync(m => m.Email == user.Email);
 
             var isStudent = await _userManager.IsInRoleAsync(user, "Student");
 
@@ -60,8 +61,7 @@ namespace WebApplication20.Controllers
             }
             else
             {
-                thesisRequests = from s in _context.ThesisRequests
-                                     select s;
+                thesisRequests = _context.ThesisRequests.Where(x => x.ProfessorId == professor.Id).ToList();
             }
             if (!String.IsNullOrEmpty(searchString))
             {
