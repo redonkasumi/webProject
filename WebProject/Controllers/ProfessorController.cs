@@ -11,6 +11,8 @@ using PagedList;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using WebProject.ViewModels;
+using System.Net.Mail;
+using System.Net;
 
 namespace WebApplication20.Controllers
 {
@@ -105,10 +107,12 @@ namespace WebApplication20.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Gender, Address, DateOfBirth, Email, FacultyId")] Professor professor)
         {
+            var password = this.GeneratePassword();
             var user = new IdentityUser { UserName = professor.Email, Email = professor.Email };
-            var result = await _userManager.CreateAsync(user, "Ardit123@");
+            var result = await _userManager.CreateAsync(user, password);
             if (result.Succeeded)
             {
+                await this.SendEmail(user.Email, password);
 
                 if (!await _roleManager.RoleExistsAsync("Professor"))
                 {
@@ -238,6 +242,58 @@ namespace WebApplication20.Controllers
         {
             return _context.Professors.Any(e => e.Id == id);
         }
+        private async Task SendEmail(string email, string password)
+        {
+            var fromAddress = new MailAddress("smiss.ubt@gmail.com", "smail");
+            var toAddress = new MailAddress(email, "Student");
+            const string fromPassword = "qgeycmoujfynteai";
+            const string subject = "Your Account Information";
+
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+            };
+            using (var message = new MailMessage(fromAddress, toAddress)
+            {
+                Subject = subject,
+                Body = $"Your account has been created. Your email is {email} and password is {password}"
+            })
+            {
+                smtp.Send(message);
+            }
+        }
+
+        private string GeneratePassword()
+        {
+            const string lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
+            const string uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            const string numericChars = "0123456789";
+            const string symbolChars = "!@#$%^&*()_+-=[]{}|;':\",.<>/?`~";
+            const int passwordLength = 10;
+
+            var password = new char[passwordLength];
+            var random = new Random();
+
+            password[0] = lowercaseChars[random.Next(0, lowercaseChars.Length - 1)];
+            password[1] = uppercaseChars[random.Next(0, uppercaseChars.Length - 1)];
+            password[2] = numericChars[random.Next(0, numericChars.Length - 1)];
+            password[3] = symbolChars[random.Next(0, symbolChars.Length - 1)];
+
+            var chars = lowercaseChars + uppercaseChars + numericChars + symbolChars;
+
+            for (int i = 4; i < passwordLength; i++)
+            {
+                password[i] = chars[random.Next(0, chars.Length - 1)];
+            }
+
+            return new string(password);
+        }
+
     }
 }
 

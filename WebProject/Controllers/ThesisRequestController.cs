@@ -183,8 +183,20 @@ namespace WebApplication20.Controllers
             {
                 return RedirectToAction("Index");
             }
-            var student = await _context.Students.FirstOrDefaultAsync(m => m.Email == user.Email);
-            thesisRequest.StudentId = student.Id;
+            var isStudent = await _userManager.IsInRoleAsync(user, "Student");
+
+            if (isStudent)
+            {
+                var student = await _context.Students.FirstOrDefaultAsync(m => m.Email == user.Email);
+                thesisRequest.StudentId = student.Id;
+            }
+            else
+            {
+                var request = await _context.ThesisRequests.AsNoTracking()
+               .FirstOrDefaultAsync(m => m.Id == id);
+                thesisRequest.StudentId = request.StudentId;
+            }
+
 
             if (ModelState.IsValid)
             {

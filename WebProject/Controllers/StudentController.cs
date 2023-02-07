@@ -13,6 +13,7 @@ using System.Text.Encodings.Web;
 using WebProject.ViewModels.Student;
 using System.Net.Mail;
 using System.Net;
+using System.Security.Cryptography;
 
 namespace WebApplication20.Controllers
 {
@@ -106,7 +107,7 @@ namespace WebApplication20.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Gender, Address, DateOfBirth, Email, FacultyId, Thesis")] Student student)
         {
-            var password = "Password123@";
+            var password = this.GeneratePassword();
             var user = new IdentityUser { UserName = student.Email, Email = student.Email };
             var result = await _userManager.CreateAsync(user, password);
             if (result.Succeeded)
@@ -271,6 +272,32 @@ namespace WebApplication20.Controllers
             {
                 smtp.Send(message);
             }
+        }
+
+        private string GeneratePassword()
+        {
+            const string lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
+            const string uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            const string numericChars = "0123456789";
+            const string symbolChars = "!@#$%^&*()_+-=[]{}|;':\",.<>/?`~";
+            const int passwordLength = 10;
+
+            var password = new char[passwordLength];
+            var random = new Random();
+
+            password[0] = lowercaseChars[random.Next(0, lowercaseChars.Length - 1)];
+            password[1] = uppercaseChars[random.Next(0, uppercaseChars.Length - 1)];
+            password[2] = numericChars[random.Next(0, numericChars.Length - 1)];
+            password[3] = symbolChars[random.Next(0, symbolChars.Length - 1)];
+
+            var chars = lowercaseChars + uppercaseChars + numericChars + symbolChars;
+
+            for (int i = 4; i < passwordLength; i++)
+            {
+                password[i] = chars[random.Next(0, chars.Length - 1)];
+            }
+
+            return new string(password);
         }
     }
 }
