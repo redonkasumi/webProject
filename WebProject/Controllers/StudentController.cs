@@ -106,21 +106,13 @@ namespace WebApplication20.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Gender, Address, DateOfBirth, Email, FacultyId, Thesis")] Student student)
         {
-            /* var passwordOptions = new PasswordOptions
-             {
-                 RequireDigit = true,
-                 RequiredLength = 8,
-                 RequireNonAlphanumeric = true,
-                 RequireUppercase = true
-             };
-             var password = new PasswordHasher<IdentityUser>().HashPassword(null, passwordOptions.GenerateRandomPassword()); */
             var password = "Password123@";
             var user = new IdentityUser { UserName = student.Email, Email = student.Email };
             var result = await _userManager.CreateAsync(user, password);
             if (result.Succeeded)
             {
-/*                await this.SendEmail(user.Email, password);
-*/
+                await this.SendEmail(user.Email, password);
+
                 if (!await _roleManager.RoleExistsAsync("Student"))
                 {
                     // Create the "User" role
@@ -255,12 +247,11 @@ namespace WebApplication20.Controllers
             return _context.Students.Any(e => e.Id == id);
         }
 
-        /*private async Task SendEmail(string email, string password)
+        private async Task SendEmail(string email, string password)
         {
-            var gmailPassword = "N9@bRi6Sv5yBmc";
             var fromAddress = new MailAddress("smiss.ubt@gmail.com", "smail");
             var toAddress = new MailAddress(email, "Student");
-            const string fromPassword = "N9@bRi6Sv5yBmc";
+            const string fromPassword = "qgeycmoujfynteai";
             const string subject = "Your Account Information";
 
             var smtp = new SmtpClient
@@ -280,7 +271,7 @@ namespace WebApplication20.Controllers
             {
                 smtp.Send(message);
             }
-        }*/
+        }
     }
 }
 

@@ -16,8 +16,9 @@
                 <span asp-validation-for="Topic" class="text-danger"></span>
             </div>
             <div class="form-group">
+
                 <label asp-for="Status"></label>
-                <select asp-for="Status" class="form-control">
+                <select asp-for="Status" class="form-control" disabled="@(User.IsInRole("Student"))">
                     <option value="Draft">Draft</option>
                     <option value="Accepted">Accepted</option>
                     <option value="Denied">Denied</option>
