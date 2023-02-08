@@ -70,7 +70,7 @@ namespace WebApplication20.Controllers
                     break;
             }
 
-            int pageSize = 3;
+            int pageSize = 10;
             int pageNumber = (page ?? 1);
             return View(faculties.ToPagedList(pageNumber, pageSize));
         }
